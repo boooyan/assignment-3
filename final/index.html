@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/p5.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/addons/p5.dom.js"></script>
+	<script src="p5.speech.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech</title>
+</head>
+<script>
+    var myVoice = new p5.Speech();
+    var myRec = new p5.SpeechRec();
+   
+
+    var input, speakbutton,voiceinputbutton;
+    function setup(){
+        createCanvas(windowWidth, windowHeight);
+		background(255, 255, 255);
+		fill(0, 0, 0, 255);
+        input = createInput("Hello, World!");
+        input.attribute("type", "input");
+		input.style("width", "50%");
+		input.style("height", "50px");
+  		input.position(100, 165);
+       
+        speakbutton = createButton('Speak');
+        speakbutton.attribute("type", "button");
+		speakbutton.style("width", "150px");
+		speakbutton.style("height", "40px");
+  		speakbutton.position(100, 260);
+  		speakbutton.mousePressed(doSpeak);
+         voiceinputbutton = createButton('Voice input');
+        voiceinputbutton.attribute("type", "button");
+		voiceinputbutton.style("width", "150px");
+		voiceinputbutton.style("height", "40px");
+  		voiceinputbutton.position(400, 260);
+        voiceinputbutton.mousePressed(showResult);
+        	myVoice.speak(input.value());
+		myRec.start();
+    
+		
+    }
+    function draw()
+	{
+		// why draw when you can click?
+	}
+function doSpeak()
+	{
+		
+		myVoice.speak(input.value()); // debug printer for voice options
+	}
+   function showResult()
+	{
+		if(myRec.resultValue==true) {
+			background(135,206,250);
+            textAlign(BOTTOM);
+            textSize(32);
+			text(myRec.resultString, width/2, height/2);
+			console.log(myRec.resultString);
+            
+		}
+	}
+
+
+ 
+    </script>
+<body>
+    
+</body>
+</html>
